@@ -9,7 +9,7 @@ const login = (req: Request, res: Response) => {
         if (name && password) {
             users.find({ name, password }, { password: 0 }).then((data: any) => {
                 if (data.length) {
-                    const generatedToken = jwt.sign({ id: data[0]._id, mobile: data[0].name }, config.token.jwtToken);
+                    const generatedToken = jwt.sign({ id: data[0]._id, name: data[0].name }, config.token.jwtToken);
                     res.status(200).json({
                         userData: data[0],
                         token: generatedToken

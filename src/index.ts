@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import { config } from './config/config';
 
 import userRoutes from './routes/uesrs';
+import tvShowRoutes from './routes/tvShow';
 
 const app = express();
 
@@ -22,6 +23,8 @@ app.use((req, res, next) => {
 });
 
 app.use('/users', userRoutes);
+app.use('/tvShow', tvShowRoutes);
+
 app.get('/', (req: Request, res: Response) => {
     res.send("It worked!");
 });

@@ -5,11 +5,11 @@ import { config } from "../config/config";
 
 const login = (req: Request, res: Response) => {
     try {
-        const { name, password } = req.body;
-        if (name && password) {
-            users.find({ name, password }, { password: 0 }).then((data: any) => {
+        const { email, password } = req.body;
+        if (email && password) {
+            users.find({ email, password }, { password: 0 }).then((data: any) => {
                 if (data.length) {
-                    const generatedToken = jwt.sign({ id: data[0]._id, name: data[0].name }, config.token.jwtToken);
+                    const generatedToken = jwt.sign({ id: data[0]._id, email: data[0].email }, config.token.jwtToken);
                     res.status(200).json({
                         userData: data[0],
                         token: generatedToken

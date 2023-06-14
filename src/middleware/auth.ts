@@ -5,7 +5,7 @@ import users from '../models/users';
 
 interface userAuthRequest extends Request {
     userId: string
-    name: string
+    email: string
 }
 const message = 'Unauthorized access!';
 export const auth = (req: userAuthRequest, res: Response, next: NextFunction) => {
@@ -16,11 +16,11 @@ export const auth = (req: userAuthRequest, res: Response, next: NextFunction) =>
             if (token) {
                 jwt.verify(token, config.token.jwtToken, async (err, decoded: any) => {
                     if (decoded) {
-                        if (decoded.id && decoded.name) {
+                        if (decoded.id && decoded.email) {
                             await users.find({ _id: decoded.id }).then((data) => {
                                 if (data.length) {
                                     req.userId = decoded.id;
-                                    req.name = decoded.name;
+                                    req.email = decoded.email;
                                     next();
                                 } else {
                                     res.status(401).json({
